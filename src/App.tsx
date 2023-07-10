@@ -36,12 +36,18 @@ function App() {
                 title: titleInput,
                 isDone: true
             }
-           let newTask = [task, ...tasks]
+            let newTask = [task, ...tasks]
             tasksObj[todoId] = newTask
             setTasksObj({...tasksObj})
 
         }
 
+    }
+    const removeTask = (todoId: string, id: string) => {
+        let tasks = tasksObj[todoId];
+       let filterTask = tasks.filter(item => item.id !== id)
+        tasksObj[todoId] = filterTask
+        setTasksObj({...tasksObj})
     }
     return (
         <div className="App">
@@ -55,6 +61,8 @@ function App() {
                     todoId={item.id}
                     task={tasksForTodolist}
                     addTask={addTask}
+                    removeTask={removeTask}
+                    changeStatus={()=>{}}
                 />
             })}
         </div>
