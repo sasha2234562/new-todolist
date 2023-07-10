@@ -48,8 +48,7 @@ function App() {
         let filterTask = tasks.filter(item => item.id !== id)
         tasksObj[todoId] = filterTask
         setTasksObj({...tasksObj})
-        delete tasksObj[todoId];
-        setTasksObj(tasksObj)
+
     }
 
     const changeStatus = (todoId: string, id: string, isDone: boolean) => {
@@ -63,19 +62,25 @@ function App() {
     }
     const removeTodolist = (todoId: string) => {
         let todolist = todolists.filter(item => item.id !== todoId);
-        setTodolists(todolist)
+        setTodolists(todolist);
+        delete tasksObj[todoId];
+        setTasksObj(tasksObj)
     }
 
-    const changeTaskTitle = (newValue: string, todoId: string, id: string)=> {
+    const changeTaskTitle = (newValue: string, todoId: string, id: string) => {
         let tasks = tasksObj[todoId];
-        let find = tasks.find(item=> item.id === id);
-        if(find) {
+        let find = tasks.find(item => item.id === id);
+        if (find) {
             find.title = newValue;
         }
         setTasksObj({...tasksObj})
     }
-    const changeTodolistTitle= (todoId: string, title: string)=> {
-
+    const todolistTitle = (todoId: string, newValue: string) => {
+        let task = todolists.find(item => item.id === todoId);
+        if(task) {
+            task.title = newValue
+        }
+        setTodolists([...todolists])
     }
     return (
         <div className="App">
@@ -93,7 +98,7 @@ function App() {
                     changeStatus={changeStatus}
                     removeTodolist={removeTodolist}
                     changeTaskTitle={changeTaskTitle}
-                    changeTodolistTitle={changeTodolistTitle}
+                    todolistTitle={todolistTitle}
                 />
             })}
         </div>
