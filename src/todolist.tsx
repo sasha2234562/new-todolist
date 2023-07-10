@@ -1,5 +1,6 @@
 import {ChangeEvent, useState} from "react";
 import {EditableSpan} from "./EditableSpan";
+import {AddItemForm} from "./addItemForm";
 
 type Tasktype = {
     title: string
@@ -31,20 +32,6 @@ export const Todolist = (props: propsTypeTodolist) => {
         todolistTitle
     } = props
 
-
-    let [titleInput, setTitleInput] = useState('');
-    let [error, setError] = useState('')
-    const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        setTitleInput(e.currentTarget.value)
-        setError('')
-    }
-    const onClickHadler = () => {
-        addTask(titleInput, todoId)
-        setTitleInput('');
-        if (titleInput === '') {
-            setError(' ')
-        }
-    }
     const removeTodolistHandler = () => {
         removeTodolist(todoId)
     }
@@ -52,17 +39,16 @@ export const Todolist = (props: propsTypeTodolist) => {
         todolistTitle(todoId, newValue)
     }
 
-
+const addItem= (title: string)=> {
+        addTask(title, todoId)
+}
     return (
         <div className={'Todolist'}>
             <div>
                 <h3><EditableSpan title={title} onChange={changeTodolistTitle}/></h3>
                 <button onClick={removeTodolistHandler}>x</button>
             </div>
-
-            <input value={titleInput} onChange={onChangeHandler}/>
-            <button onClick={onClickHadler}>+</button>
-            {error ? <div className={'error'}>Error</div> : ''}
+            <AddItemForm addItem={addItem}/>
 
             {task.map((item) => {
                 const onChange = (newValue: string) => {
@@ -72,7 +58,7 @@ export const Todolist = (props: propsTypeTodolist) => {
                 const onChangeHandlerChecked = (event: ChangeEvent<HTMLInputElement>) => {
                     changeStatus(todoId, item.id, event.currentTarget.checked)
                 }
-                const removeTasks= ()=> {
+                const removeTasks = () => {
                     removeTask(todoId, item.id)
                 }
                 return (

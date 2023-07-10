@@ -23,7 +23,6 @@ function App() {
             {id: v1(), title: "Cats", isDone: false}
         ]
     });
-
     let [todolists, setTodolists] = useState([
         {id: todolistIdOne, title: "What to learn", filter: 'active'},
         {id: todolistIdTwo, title: "I need to bye today", filter: 'completed'},
