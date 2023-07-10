@@ -1,3 +1,5 @@
+import {ChangeEvent, EventHandler, useState} from "react";
+
 type Tasktype = {
     title: string
     id: string
@@ -7,20 +9,32 @@ type propsTypeTodolist = {
     title: string
     todoId: string
     task: Array<Tasktype>
+    addTask: (titleInput:string, todoId: string)=>void
 }
 
 export const Todolist = (props: propsTypeTodolist) => {
     const {
         title,
         todoId,
-        task
+        task,
+        addTask
     } = props
+
+
+    let [titleInput, setTitleInput]= useState('')
+    const onChangeHandler= (e: ChangeEvent<HTMLInputElement>)=> {
+        setTitleInput(e.currentTarget.value)
+    }
+    const onClickHadler = ()=> {
+        addTask(titleInput, todoId)
+        setTitleInput('')
+    }
 
     return (
         <div className={'Todolist'}>
             <h3>{title}</h3>
-            <input/>
-            <button>+</button>
+            <input value={titleInput} onChange={onChangeHandler}/>
+            <button onClick={onClickHadler}>+</button>
 
             {task.map((item) => {
                 return (

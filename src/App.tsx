@@ -28,7 +28,21 @@ function App() {
         {id: todolistIdOne, title: "What to learn", filter: 'active'},
         {id: todolistIdTwo, title: "I need to bye today", filter: 'completed'},
     ])
+    const addTask = (titleInput: string, todoId: string) => {
+        let tasks = tasksObj[todoId];
+        if (titleInput !== '') {
+            let task = {
+                id: v1(),
+                title: titleInput,
+                isDone: true
+            }
+           let newTask = [task, ...tasks]
+            tasksObj[todoId] = newTask
+            setTasksObj({...tasksObj})
 
+        }
+
+    }
     return (
         <div className="App">
             {todolists.map((item) => {
@@ -40,7 +54,7 @@ function App() {
                     title={item.title}
                     todoId={item.id}
                     task={tasksForTodolist}
-
+                    addTask={addTask}
                 />
             })}
         </div>
