@@ -63,6 +63,7 @@ export const Todolist = (props: propsTypeTodolist) => {
                     removeTask(todoId, item.id)
                 }
                 return (
+
                     <li key={item.id}>
                         <input
                             type={"checkbox"}
@@ -70,6 +71,7 @@ export const Todolist = (props: propsTypeTodolist) => {
                             onChange={onChangeHandlerChecked}
                         />
                         <EditableSpan title={item.title} onChange={onChange}/>
+
                         <button onClick={removeTasks}>X</button>
                     </li>
                 )

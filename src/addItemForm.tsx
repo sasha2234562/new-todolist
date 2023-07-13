@@ -1,4 +1,5 @@
 import {ChangeEvent, useState} from "react";
+import {Button} from "@mui/material";
 
 type propsAddItemType = {
     addItem: (title: string) => void
@@ -21,7 +22,7 @@ export const AddItemForm = (props: propsAddItemType) => {
     return (
         <div>
             <input value={titleInput} onChange={onChangeHandler}/>
-            <button onClick={onClickHadler}>+</button>
+            <Button variant={'contained'} color={'primary'} onClick={onClickHadler}>+</Button>
             {error ? <div className={'error'}>Error</div> : ''}
         </div>
     )
