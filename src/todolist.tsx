@@ -40,9 +40,9 @@ export const Todolist = (props: propsTypeTodolist) => {
         todolistTitle(todoId, newValue)
     }
 
-const addItem= (title: string)=> {
+    const addItem = (title: string) => {
         addTask(title, todoId)
-}
+    }
     return (
         <div className={'Todolist'}>
             <div>
