@@ -1,9 +1,9 @@
 import {ChangeEvent, useState} from "react";
 
-type propsAddItemType= {
-    addItem: (title: string)=>void
+type propsAddItemType = {
+    addItem: (title: string) => void
 }
-export const AddItemForm= (props: propsAddItemType)=> {
+export const AddItemForm = (props: propsAddItemType) => {
     let [titleInput, setTitleInput] = useState('');
     let [error, setError] = useState('')
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
@@ -18,7 +18,7 @@ export const AddItemForm= (props: propsAddItemType)=> {
         }
     }
 
-    return(
+    return (
         <div>
             <input value={titleInput} onChange={onChangeHandler}/>
             <button onClick={onClickHadler}>+</button>
