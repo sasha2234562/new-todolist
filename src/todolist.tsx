@@ -7,6 +7,7 @@ type Tasktype = {
     id: string
     isDone: boolean
 }
+
 type propsTypeTodolist = {
     title: string
     todoId: string
