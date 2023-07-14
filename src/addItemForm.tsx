@@ -1,5 +1,5 @@
 import {ChangeEvent, useState} from "react";
-import {Button} from "@mui/material";
+import {Button, TextField} from "@mui/material";
 
 type propsAddItemType = {
     addItem: (title: string) => void
@@ -12,18 +12,31 @@ export const AddItemForm = (props: propsAddItemType) => {
         setError('')
     }
     const onClickHadler = () => {
-        props.addItem(titleInput)
+        if(titleInput !== ''){
+            props.addItem(titleInput)
+        }
         setTitleInput('');
         if (titleInput === '') {
-            setError(' ')
+            setError('title is required')
         }
     }
 
     return (
         <div>
-            <input value={titleInput} onChange={onChangeHandler}/>
-            <Button variant={'contained'} color={'primary'} onClick={onClickHadler}>+</Button>
-            {error ? <div className={'error'}>Error</div> : ''}
+            <TextField
+                variant={'outlined'}
+                label={'Type value'}
+                value={titleInput}
+                onChange={onChangeHandler}
+                error={!!error}
+                helperText={error}
+            />
+            <Button
+                variant={'contained'}
+                color={'primary'}
+                onClick={onClickHadler}>
+                +
+            </Button>
         </div>
     )
 }

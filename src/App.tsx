@@ -3,12 +3,16 @@ import './App.css';
 import {Todolist} from "./todolist";
 import {v1} from "uuid";
 import {AddItemForm} from "./addItemForm";
+import {AppBar, Button, Grid, IconButton, Menu, Toolbar, Typography} from "@mui/material";
 
-type todolistType= {
+export type filterType = 'all' | 'completed' | 'active'
+
+type todolistType = {
     id: string,
     title: string
     filter: string
 }
+
 function App() {
 
 
@@ -82,33 +86,53 @@ function App() {
     }
     const todolistTitle = (todoId: string, newValue: string) => {
         let task = todolists.find(item => item.id === todoId);
-        if(task) {
+        if (task) {
             task.title = newValue
         }
         setTodolists([...todolists])
     }
-    const addTodolist= (title: string)=> {
+    const addTodolist = (title: string) => {
         let todolist: todolistType = {
             id: v1(),
             title,
             filter: 'all'
         }
         setTodolists(([todolist, ...todolists]))
-        setTasksObj({...tasksObj,[todolist.id]: []})
+        setTasksObj({...tasksObj, [todolist.id]: []})
+
+    }
+
+    const changeFilter = (filterValue: filterType, todoId: string) => {
+        let filterTodo = todolists.find(item => item.id === todoId);
+        if (filterTodo) {
+            filterTodo.filter = filterValue;
+            setTasksObj({...tasksObj})
+        }
     }
     return (
         <div className="App">
+            <Grid>
+                <AddItemForm addItem={addTodolist}/>
+            </Grid>
 
-            <AddItemForm addItem={addTodolist}/>
 
             {todolists.map((item) => {
 
 
                 let tasksForTodolist = tasksObj[item.id]
+
+                if (item.filter === 'active') {
+                    tasksForTodolist = tasksForTodolist.filter(item => item.isDone === false)
+                }
+                if (item.filter === 'completed') {
+                    tasksForTodolist = tasksForTodolist.filter(item => item.isDone === true)
+                }
+
                 return <Todolist
                     key={item.id}
                     title={item.title}
                     todoId={item.id}
+                    filter={item.filter}
                     task={tasksForTodolist}
                     addTask={addTask}
                     removeTask={removeTask}
@@ -116,6 +140,7 @@ function App() {
                     removeTodolist={removeTodolist}
                     changeTaskTitle={changeTaskTitle}
                     todolistTitle={todolistTitle}
+                    changeFilter={changeFilter}
                 />
             })}
         </div>
