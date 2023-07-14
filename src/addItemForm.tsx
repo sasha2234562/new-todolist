@@ -32,6 +32,7 @@ export const AddItemForm = (props: propsAddItemType) => {
                 helperText={error}
             />
             <Button
+                style={{margin: '0 11px'}}
                 variant={'contained'}
                 color={'primary'}
                 onClick={onClickHadler}>

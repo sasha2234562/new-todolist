@@ -57,7 +57,11 @@ export const Todolist = (props: propsTypeTodolist) => {
         <div className={'Todolist'}>
             <div>
                 <h3><EditableSpan title={title} onChange={changeTodolistTitle}/></h3>
-                <Button variant="outlined" onClick={removeTodolistHandler} startIcon={<Delete />}>
+                <Button
+                    style={{margin: '21px 0'}}
+                    variant="outlined"
+                    onClick={removeTodolistHandler}
+                    startIcon={<Delete />}>
                     Delete
                 </Button>
             </div>
@@ -77,17 +81,20 @@ export const Todolist = (props: propsTypeTodolist) => {
                 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
                 return (
 
-                    <li key={item.id}>
+                    <div key={item.id}>
                             <Checkbox
                             checked={item.isDone}
                             onChange={onChangeHandlerChecked}
                             icon={<FavoriteBorder
                             />} checkedIcon={<Favorite/>}/>
                             <EditableSpan title={item.title} onChange={onChange}/>
-                            <IconButton aria-label="delete" size="large" onClick={removeTasks}>
+                            <IconButton
+                                aria-label="delete"
+                                size="large"
+                                onClick={removeTasks} >
                                 <Delete/>
                             </IconButton>
-                    </li>
+                    </div>
                 )
             })}
 
