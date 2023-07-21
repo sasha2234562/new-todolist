@@ -1,42 +1,30 @@
-import {ChangeEvent, useState} from "react";
-import {TextField} from "@mui/material";
+import TextField from '@mui/material/TextField/TextField';
+import React, {ChangeEvent, useState} from 'react';
 
 
-type propsTypeEditableSpan = {
-    title: string
+type EditableSpanPropsType = {
+    value: string
     onChange: (newValue: string) => void
 }
 
-export const EditableSpan = (props: propsTypeEditableSpan) => {
-    let [titleInput, setTitleInput] = useState('');
-    let [editMode, setEditMode] = useState<boolean>(true)
-    const {
-        title,
-        onChange
-    } = props
+export function EditableSpan(props: EditableSpanPropsType) {
+    let [editMode, setEditMode] = useState(false);
+    let [title, setTitle] = useState(props.value);
 
-    const onDoubleClickHandler = () => {
-        setEditMode(false)
+    const activateEditMode = () => {
+        setEditMode(true);
+        setTitle(props.value);
     }
-    const onblurHandler = () => {
-        setEditMode(true)
+    const activateViewMode = () => {
+        setEditMode(false);
+        props.onChange(title);
     }
-    const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        onChange(e.currentTarget.value)
+    const changeTitle = (e: ChangeEvent<HTMLInputElement>) => {
+        setTitle(e.currentTarget.value)
     }
-    return (<>
-            {
-                editMode ?
-                    <span onDoubleClick={onDoubleClickHandler}>{title}</span> :
-                    <TextField
-                        variant="outlined"
-                        type="text"
-                        value={title}
-                        onBlur={onblurHandler}
-                        autoFocus
-                        onChange={onChangeHandler}/>
 
-            }
-        </>
-    )
+    return editMode
+        ?    <TextField variant="outlined"
+                        value={title} onChange={changeTitle} autoFocus onBlur={activateViewMode} />
+        : <span onDoubleClick={activateEditMode}>{props.value}</span>
 }
