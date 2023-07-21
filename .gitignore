@@ -21,3 +21,10 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+/.idea/.gitignore
+/.idea/modules.xml
+/.idea/new-todolist.iml
+/.idea/inspectionProfiles/Project_Default.xml
+/src/serviceWorker.ts
+/.idea/vcs.xml
+/yarn.lock
