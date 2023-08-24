@@ -1,10 +1,10 @@
 import React, {ChangeEvent} from 'react';
 import {FilterValuesType} from './App';
+import {AddItemForm} from './AddItemForm';
+import {EditableSpan} from './EditableSpan';
 import IconButton from "@mui/material/IconButton/IconButton";
 import {Delete} from "@mui/icons-material";
 import {Button, Checkbox} from "@mui/material";
-import {EditableSpan} from "./EditableSpan";
-import {AddItemForm} from "./AddItemForm";
 
 
 export type TaskType = {
@@ -42,6 +42,7 @@ export function Todolist(props: PropsType) {
     const onAllClickHandler = () => props.changeFilter("all", props.id);
     const onActiveClickHandler = () => props.changeFilter("active", props.id);
     const onCompletedClickHandler = () => props.changeFilter("completed", props.id);
+
     return <div>
         <h3> <EditableSpan value={props.title} onChange={changeTodolistTitle} />
             <IconButton onClick={removeTodolist}>
@@ -49,7 +50,6 @@ export function Todolist(props: PropsType) {
             </IconButton>
         </h3>
         <AddItemForm addItem={addTask}/>
-
         <div>
             {
                 props.tasks.map(t => {

@@ -2,10 +2,10 @@ import React, {useState} from 'react';
 import './App.css';
 import {TaskType, Todolist} from './Todolist';
 import {v1} from 'uuid';
+import {AddItemForm} from './AddItemForm';
 import {AppBar, Button, Container, Grid, Paper, Toolbar, Typography} from "@mui/material";
 import IconButton from "@mui/material/IconButton/IconButton";
 import {Menu} from "@mui/icons-material";
-import {AddItemForm} from "./AddItemForm";
 
 
 export type FilterValuesType = "all" | "active" | "completed";
