@@ -33,27 +33,27 @@ const dispatch = useDispatch()
 const todolists =  useSelector<AppRoorStateType, Array<TodolistType>>(state => state.todolists)
 const tasks = useSelector<AppRoorStateType, TasksStateType>(state => state.tasks)
 
-    function removeTask(id: string, todolistId: string) {
-        dispatch(removeTaskAC(id, todolistId))
-    }
-    function addTask(title: string, todolistId: string) {
-        dispatch(addTaskAC(title, todolistId))
-    }
-    function changeStatus(id: string, isDone: boolean, todolistId: string) {
-        dispatch(changeTaskStatusAC(id, isDone, todolistId))
-    }
-    function changeTaskTitle(id: string, newTitle: string, todolistId: string) {
-        dispatch(changeTaskTitleAC(id, newTitle, todolistId))
-    }
-    function changeFilter(value: FilterValuesType, todolistId: string) {
-        dispatch(changeTodolistFilterAC(todolistId, value))
-    }
-    function removeTodolist(id: string) {
-        dispatch(removeTodolistAC(id))
-    }
-    function changeTodolistTitle(id: string, title: string) {
-        dispatch(changeTodolistTitleAC(id, title))
-    }
+    // function removeTask(id: string, todolistId: string) {
+    //     dispatch(removeTaskAC(id, todolistId))
+    // }
+    // function addTask(title: string, todolistId: string) {
+    //     dispatch(addTaskAC(title, todolistId))
+    // }
+    // function changeStatus(id: string, isDone: boolean, todolistId: string) {
+    //     dispatch(changeTaskStatusAC(id, isDone, todolistId))
+    // }
+    // function changeTaskTitle(id: string, newTitle: string, todolistId: string) {
+    //     dispatch(changeTaskTitleAC(id, newTitle, todolistId))
+    // }
+    // function changeFilter(value: FilterValuesType, todolistId: string) {
+    //     dispatch(changeTodolistFilterAC(todolistId, value))
+    // }
+    // function removeTodolist(id: string) {
+    //     dispatch(removeTodolistAC(id))
+    // }
+    // function changeTodolistTitle(id: string, title: string) {
+    //     dispatch(changeTodolistTitleAC(id, title))
+    // }
     function addTodolist(title: string) {
         dispatch(addTodolistAC(title))
     }
@@ -95,14 +95,15 @@ const tasks = useSelector<AppRoorStateType, TasksStateType>(state => state.tasks
                                         id={tl.id}
                                         title={tl.title}
                                         tasks={tasksForTodolist}
-                                        removeTask={removeTask}
-                                        changeFilter={changeFilter}
-                                        addTask={addTask}
-                                        changeTaskStatus={changeStatus}
                                         filter={tl.filter}
-                                        removeTodolist={removeTodolist}
-                                        changeTaskTitle={changeTaskTitle}
-                                        changeTodolistTitle={changeTodolistTitle}
+                                        // removeTask={removeTask}
+                                        // changeFilter={changeFilter}
+                                        // addTask={addTask}
+                                        // changeTaskStatus={changeStatus}
+                                        // filter={tl.filter}
+                                        // removeTodolist={removeTodolist}
+                                        // changeTaskTitle={changeTaskTitle}
+                                        // changeTodolistTitle={changeTodolistTitle}
                                     />
                                 </Paper>
                             </Grid>
