@@ -5,13 +5,7 @@ import {AppBar, Button, Container, Grid, Paper, Toolbar, Typography} from "@mui/
 import IconButton from "@mui/material/IconButton/IconButton";
 import {Menu} from "@mui/icons-material";
 import {AddItemForm} from "./AddItemForm";
-import {
-    addTodolistAC,
-    changeTodolistFilterAC,
-    changeTodolistTitleAC,
-    removeTodolistAC
-} from "./state/todolists-reducer";
-import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from "./state/tasks-reducer";
+import {addTodolistAC} from "./state/todolists-reducer";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRoorStateType} from "./state/store";
 
@@ -29,9 +23,9 @@ export type TasksStateType = {
 
 
 function AppWhithRedux() {
-const dispatch = useDispatch()
-const todolists =  useSelector<AppRoorStateType, Array<TodolistType>>(state => state.todolists)
-const tasks = useSelector<AppRoorStateType, TasksStateType>(state => state.tasks)
+    const dispatch = useDispatch()
+    const todolists = useSelector<AppRoorStateType, Array<TodolistType>>(state => state.todolists)
+    const tasks = useSelector<AppRoorStateType, TasksStateType>(state => state.tasks)
 
     function addTodolist(title: string) {
         dispatch(addTodolistAC(title))
