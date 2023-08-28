@@ -7,7 +7,6 @@ import {AddBox} from "@mui/icons-material";
 type AddItemFormPropsType = {
     addItem: (title: string) => void
 }
-
 export const AddItemForm = React.memo( (props: AddItemFormPropsType) => {
 
     let [title, setTitle] = useState("")
