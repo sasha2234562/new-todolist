@@ -1,11 +1,12 @@
 import React, {useState} from 'react';
-import './App.css';
-import {TaskType, Todolist} from './Todolist';
-import {AddItemForm} from './AddItemForm';
+import '../App.css';
+import {TaskType, Todolist} from '../Todolist';
+import {AddItemForm} from '../AddItemForm';
 import {AppBar, Button, Container, Grid, IconButton, Paper, Toolbar, Typography} from "@mui/material";
 import {Menu} from "@mui/icons-material";
-import {todolistId1, todolistId2} from "./id/id";
+import {todolistId1, todolistId2} from "../id/id";
 import {v1} from "uuid";
+import {useTasks} from "./hooks/hooksTasks";
 
 
 export type FilterValuesType = "all" | "active" | "completed";
@@ -28,23 +29,6 @@ function useTodolists() {
     return {
         todolists,
         setTodolists
-    }
-}
-
-function useTasks() {
-    let [tasks, setTasks] = useState<TasksStateType>({
-        [todolistId1]: [
-            {id: v1(), title: "HTML&CSS", isDone: true},
-            {id: v1(), title: "JS", isDone: true}
-        ],
-        [todolistId2]: [
-            {id: v1(), title: "Milk", isDone: true},
-            {id: v1(), title: "React Book", isDone: true}
-        ]
-    });
-    return {
-        tasks,
-        setTasks
     }
 }
 
