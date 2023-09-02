@@ -1,12 +1,12 @@
-import React, {useState} from 'react';
+import React from 'react';
 import '../App.css';
 import {TaskType, Todolist} from '../Todolist';
 import {AddItemForm} from '../AddItemForm';
 import {AppBar, Button, Container, Grid, IconButton, Paper, Toolbar, Typography} from "@mui/material";
 import {Menu} from "@mui/icons-material";
-import {todolistId1, todolistId2} from "../id/id";
 import {v1} from "uuid";
-import {useTasks} from "./hooks/hooksTasks";
+import {useTasks} from "./hooks/Tasks";
+import {useTodolists} from "./hooks/Todolists";
 
 
 export type FilterValuesType = "all" | "active" | "completed";
@@ -20,17 +20,6 @@ export type TasksStateType = {
     [key: string]: Array<TaskType>
 }
 
-function useTodolists() {
-    let [todolists, setTodolists] = useState<Array<TodolistType>>([
-        {id: todolistId1, title: "What to learn", filter: "all"},
-        {id: todolistId2, title: "What to buy", filter: "all"}
-    ])
-
-    return {
-        todolists,
-        setTodolists
-    }
-}
 
 function App() {
     const {tasks, setTasks} = useTasks()
