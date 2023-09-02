@@ -5,8 +5,8 @@ import {AddItemForm} from '../AddItemForm';
 import {AppBar, Button, Container, Grid, IconButton, Paper, Toolbar, Typography} from "@mui/material";
 import {Menu} from "@mui/icons-material";
 import {v1} from "uuid";
-import {useTasks} from "./hooks/Tasks";
-import {useTodolists} from "./hooks/Todolists";
+import {useTasks} from "./hooks/useTasks";
+import {useTodolists} from "./hooks/useTodolists";
 
 
 export type FilterValuesType = "all" | "active" | "completed";
