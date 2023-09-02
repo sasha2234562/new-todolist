@@ -43,17 +43,14 @@ function useTasks() {
         ]
     });
     return {
-        tasks, setTasks
-    } as  const
+        tasks,
+        setTasks
+    }
 }
 
 function App() {
-    let {tasks, setTasks} = useTasks()
-
-    let [todolists, setTodolists] = useState<Array<TodolistType>>([
-        {id: todolistId1, title: "What to learn", filter: "all"},
-        {id: todolistId2, title: "What to buy", filter: "all"}
-    ])
+    const {tasks, setTasks} = useTasks()
+    const {todolists, setTodolists} = useTodolists()
 
     function removeTask(id: string, todolistId: string) {
         //достанем нужный массив по todolistId:
