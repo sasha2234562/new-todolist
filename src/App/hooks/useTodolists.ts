@@ -1,9 +1,9 @@
 import {useState} from "react";
 import {todolistId1, todolistId2} from "../../id/id";
-import {FilterValuesType, TasksStateType, TodolistType} from "../App";
+import {FilterValuesType, TodolistType} from "../App";
 import {v1} from "uuid";
 
-export function useTodolists(setTasks: any, tasks: TasksStateType) {
+export function useTodolists(addTasksForTodolist:(newTodolistId: string)=> void,removeTasksForTodolist: (id: string)=> void) {
     let [todolists, setTodolists] = useState<Array<TodolistType>>([
         {id: todolistId1, title: "What to learn", filter: "all"},
         {id: todolistId2, title: "What to buy", filter: "all"}
@@ -20,9 +20,7 @@ export function useTodolists(setTasks: any, tasks: TasksStateType) {
         // засунем в стейт список тудулистов, id которых не равны тому, который нужно выкинуть
         setTodolists(todolists.filter(tl => tl.id != id));
         // удалим таски для этого тудулиста из второго стейта, где мы храним отдельно таски
-        delete tasks[id]; // удаляем св-во из объекта... значением которого являлся массив тасок
-        // засетаем в стейт копию объекта, чтобы React отреагировал перерисовкой
-        setTasks({...tasks});
+        removeTasksForTodolist(id)
     }
 
     function changeTodolistTitle(id: string, title: string) {
@@ -39,10 +37,7 @@ export function useTodolists(setTasks: any, tasks: TasksStateType) {
         let newTodolistId = v1();
         let newTodolist: TodolistType = {id: newTodolistId, title: title, filter: 'all'};
         setTodolists([newTodolist, ...todolists]);
-        setTasks({
-            ...tasks,
-            [newTodolistId]: []
-        })
+        addTasksForTodolist(newTodolistId)
     }
 
     return {

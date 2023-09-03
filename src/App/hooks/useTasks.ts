@@ -59,6 +59,17 @@ export function useTasks() {
             setTasks({...tasks});
         }
     }
+    function removeTasksForTodolist (id: string){
+        delete tasks[id]; // удаляем св-во из объекта... значением которого являлся массив тасок
+        // засетаем в стейт копию объекта, чтобы React отреагировал перерисовкой
+        setTasks({...tasks});
+    }
+    function addTasksForTodolist (newTodolistId: string){
+        setTasks({
+            ...tasks,
+            [newTodolistId]: []
+        })
+    }
 
     return {
         tasks,
@@ -66,6 +77,8 @@ export function useTasks() {
         removeTask,
         addTask,
         changeStatus,
-        changeTaskTitle
+        changeTaskTitle,
+        removeTasksForTodolist,
+        addTasksForTodolist
     }
 }

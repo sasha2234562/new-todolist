@@ -27,17 +27,18 @@ function App() {
         removeTask,
         addTask,
         changeStatus,
-        changeTaskTitle
+        changeTaskTitle,
+        addTasksForTodolist,
+        removeTasksForTodolist
     } = useTasks()
 
     const {
         todolists,
-        setTodolists,
         changeFilter,
         removeTodolist,
         changeTodolistTitle,
         addTodolist
-    } = useTodolists(setTasks, tasks)
+    } = useTodolists(addTasksForTodolist, removeTasksForTodolist)
 
 
     return (
