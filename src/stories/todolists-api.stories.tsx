@@ -24,7 +24,9 @@ export const GetTodolists = () => {
 export const CreateTodolist = () => {
     const [state, setState] = useState<any>(null)
     useEffect(() => {
-        axios.get('https://social-network.samuraijs.com/api/1.1/todo-lists', settings)
+        axios.post('https://social-network.samuraijs.com/api/1.1/todo-lists',{title: 'New Todolist'}, settings)
+            .then(resolve=> setState(resolve.data))
+        axios.post('https://social-network.samuraijs.com/api/1.1/todo-lists',{title: 'New Todolist Two'}, settings)
             .then(resolve=> setState(resolve.data))
     }, [])
 
