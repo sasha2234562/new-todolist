@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-type TodolistResponseType<D> = {
+type TodolistResponseType<D = {}> = {
     resultCode: number
     messages: Array<string>
     fieldsErrors: Array<string>
@@ -22,7 +22,7 @@ const instans = axios.create({
 })
 export const todolistAPI = {
     updateTodolist(todolistId: string, title: string) {
-        return instans.put<TodolistResponseType<{}>>(`/${todolistId}`,
+        return instans.put<TodolistResponseType>(`/${todolistId}`,
             {title}
         )
     },
@@ -31,7 +31,7 @@ export const todolistAPI = {
 
     },
     deleteTodolist(todolistId: string) {
-        return instans.delete<TodolistResponseType<{}>>(`${todolistId}`)
+        return instans.delete<TodolistResponseType>(`${todolistId}`)
     },
     postTodolist(title: string) {
         return instans.post<TodolistResponseType<{item: TodolistType}>>('', {title})

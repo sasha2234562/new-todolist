@@ -27,7 +27,7 @@ type GetTaskResponse = {
     items: TaskType[]
 }
 export const tasksApi = {
-    getTasks (todolistId: string) {
+    getTasks(todolistId: string) {
         return instans.get<GetTaskResponse>(`${todolistId}/tasks`)
     },
     postTask(todolistId: string, taskId: string) {
