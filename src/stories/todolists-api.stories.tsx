@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import {todolistAPI} from "../api/todolist-api";
+import {tasksApi} from "../api/tasks-api";
 
 export default {
     title: 'API'
@@ -50,3 +51,21 @@ export const UpdateTodolistTitle = () => {
     return <div>{JSON.stringify(state)}</div>
 }
 
+
+export const GetTasks = () => {
+    const [state, setState] = useState<any>(null)
+    useEffect(() => {
+        const todolistId = '976dc380-75e9-419d-8b91-cc7ffa0f42ea'
+        tasksApi.getTasks(todolistId).then(res => setState(res.data.items))
+    }, [])
+    return <div>{JSON.stringify(state)}</div>
+}
+export const CreateTask = () => {
+    const [state, setState] = useState<any>(null)
+    useEffect(() => {
+        const todolistId = '976dc380-75e9-419d-8b91-cc7ffa0f42ea'
+        const taskId = ''
+        tasksApi.postTask(todolistId, taskId).then(res => setState(res.data))
+    }, [])
+    return <div>{JSON.stringify(state)}</div>
+}
