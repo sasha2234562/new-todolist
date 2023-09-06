@@ -31,6 +31,9 @@ export const tasksApi = {
         return instans.get<GetTaskResponse>(`${todolistId}/tasks`)
     },
     postTask(todolistId: string, taskId: string) {
-        return instans.post(`${todolistId}/tasks/`, 'New Task 1')
+        return instans.post(`${todolistId}/tasks/`, {title: 'New Task 1'})
+    },
+    instansTask(todolistId: string, taskId: string) {
+        return instans.put(`${todolistId}/tasks/${taskId}`, {title: 'Dasha is my girl'})
     }
 }
