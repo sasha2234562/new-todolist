@@ -33,8 +33,8 @@ export const tasksApi = {
     postTask(todolistId: string, title: string) {
         return instans.post(`${todolistId}/tasks/`, {title: title})
     },
-    instansTask(todolistId: string, taskId: string) {
-        return instans.put(`${todolistId}/tasks/${taskId}`, {title: 'Dasha is my girl'})
+    instansTask(todolistId: string, taskId: string, title: string) {
+        return instans.put(`${todolistId}/tasks/${taskId}`, {title})
     },
     deleteTask(todolistId: string, taskId: string) {
         return instans.delete(`${todolistId}/tasks/${taskId}`)

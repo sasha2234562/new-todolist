@@ -82,12 +82,30 @@ export const CreateTask = () => {
 }
 export const UpdateTask = () => {
     const [state, setState] = useState<any>(null)
-    useEffect(() => {
-        const todolistId = "dc05a722-ac4c-4b1e-8d80-dd39db8bbc15"
-        const taskId = "eb205e1b-f557-4f91-b677-7dd3641317e2"
-        tasksApi.instansTask(todolistId, taskId).then(res => setState(res.data))
-    }, []);
-    return <div>{state && JSON.stringify(state)}</div>
+    const [todolistId, setTodolistId] = useState<string>('')
+    const [taskId, setTaskId] = useState<string>('')
+    const [title, setTitle] = useState<string>('')
+    const onChangeTodolistId = (e: ChangeEvent<HTMLInputElement>) => {
+        setTodolistId(e.currentTarget.value)
+    }
+    const onChangeTaskId = (e: ChangeEvent<HTMLInputElement>) => {
+        setTaskId(e.currentTarget.value)
+    }
+    const onClickUpdate = () => {
+        tasksApi.instansTask(todolistId, taskId, title).then(res => setState(res.data))
+    }
+    const onChangeTitle = (e: ChangeEvent<HTMLInputElement>) => {
+        setTitle(e.currentTarget.value)
+    }
+    return <div>
+        <div><input placeholder={'todolistId'} type="text" onChange={onChangeTodolistId}/></div>
+        <div><input placeholder={'taskId'} type="text" onChange={onChangeTaskId}/></div>
+        <div><input placeholder={'title'} type="text" onChange={onChangeTitle}/></div>
+        <div>
+            <button onClick={onClickUpdate}>update</button>
+        </div>
+        {state && JSON.stringify(state)}
+    </div>
 }
 export const DeleteTask = () => {
     const [state, setState] = useState<any>(null)
