@@ -85,6 +85,14 @@ export const UpdateTask = () => {
     const [todolistId, setTodolistId] = useState<string>('')
     const [taskId, setTaskId] = useState<string>('')
     const [title, setTitle] = useState<string>('')
+    const [description, setDescription] = useState<string>('')
+    const [status, setStatus] = useState<number>(0)
+    const [priority, setPriority] = useState<number>(0)
+    const [startDate, setStartDate] = useState<string>('')
+    const [order, setOrder] = useState<number>(0)
+    const [addedDate, setAddedDate] = useState<string>('')
+    const [deadline, setDeadline] = useState<string>('')
+
     const onChangeTodolistId = (e: ChangeEvent<HTMLInputElement>) => {
         setTodolistId(e.currentTarget.value)
     }
@@ -92,15 +100,22 @@ export const UpdateTask = () => {
         setTaskId(e.currentTarget.value)
     }
     const onClickUpdate = () => {
-        tasksApi.instansTask(todolistId, taskId, title).then(res => setState(res.data))
+        tasksApi.instansTask(todolistId, taskId, {title, description, status, priority, startDate, order, addedDate, deadline}).then(res => setState(res.data))
     }
     const onChangeTitle = (e: ChangeEvent<HTMLInputElement>) => {
         setTitle(e.currentTarget.value)
     }
     return <div>
-        <div><input placeholder={'todolistId'} type="text" onChange={onChangeTodolistId}/></div>
-        <div><input placeholder={'taskId'} type="text" onChange={onChangeTaskId}/></div>
-        <div><input placeholder={'title'} type="text" onChange={onChangeTitle}/></div>
+         <div><input placeholder={'todolistId'} type="text" onChange={onChangeTodolistId}/></div>
+         <div><input placeholder={'taskId'} type="text" onChange={onChangeTaskId}/></div>
+         <div><input placeholder={'title'} type="text" onChange={onChangeTitle}/></div>
+         <div><input placeholder={'description'} type="text" onChange={(e)=>setDescription(e.currentTarget.value)}/></div>
+         <div><input placeholder={'order'} type="number" onChange={(e)=>setOrder(+e.currentTarget.value)}/></div>
+         <div><input placeholder={'priority'} type="number" onChange={(e)=>setPriority(+e.currentTarget.value)}/></div>
+         <div><input placeholder={'status'} type="number" onChange={(e)=>setStatus(+e.currentTarget.value)}/></div>
+         <div><input placeholder={'startDate'} type="text" onChange={(e)=>setStartDate(e.currentTarget.value)}/></div>
+         <div><input placeholder={'deadline'} type="text" onChange={(e)=>setDeadline(e.currentTarget.value)}/></div>
+         <div><input placeholder={'addedDate'} type="text" onChange={(e)=>setAddedDate(e.currentTarget.value)}/></div>
         <div>
             <button onClick={onClickUpdate}>update</button>
         </div>

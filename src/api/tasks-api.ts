@@ -21,6 +21,16 @@ type TaskType = {
     order: number
     addedDate: string
 }
+type ModelType = {
+    title: string
+    description: string
+    status: number
+    priority: number
+    startDate: string
+    order: number
+    addedDate: string
+    deadline: string
+}
 type GetTaskResponse = {
     error: string | null
     totalCount: number
@@ -33,8 +43,8 @@ export const tasksApi = {
     postTask(todolistId: string, title: string) {
         return instans.post(`${todolistId}/tasks/`, {title: title})
     },
-    instansTask(todolistId: string, taskId: string, title: string) {
-        return instans.put(`${todolistId}/tasks/${taskId}`, {title})
+    instansTask(todolistId: string, taskId: string, model:ModelType) {
+        return instans.put(`${todolistId}/tasks/${taskId}`, model)
     },
     deleteTask(todolistId: string, taskId: string) {
         return instans.delete(`${todolistId}/tasks/${taskId}`)
