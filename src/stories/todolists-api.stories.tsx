@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, {ChangeEvent, useEffect, useState} from 'react'
 import {todolistAPI} from "../api/todolist-api";
 import {tasksApi} from "../api/tasks-api";
 
@@ -76,7 +76,29 @@ export const UpdateTask = () => {
     useEffect(() => {
         const todolistId = "dc05a722-ac4c-4b1e-8d80-dd39db8bbc15"
         const taskId = "eb205e1b-f557-4f91-b677-7dd3641317e2"
-        tasksApi.instansTask(todolistId, taskId).then(res=> setState(res.data))
+        tasksApi.instansTask(todolistId, taskId).then(res => setState(res.data))
     }, []);
     return <div>{JSON.stringify(state)}{JSON.stringify(state)}</div>
+}
+export const DeleteTask = () => {
+    const [state, setState] = useState<any>(null)
+    const [todolistId, setTodolistId] = useState('')
+    const [taskId, setTaskId] = useState('')
+    const onClickHandler = () => {
+        tasksApi.deleteTask(todolistId, taskId).then(res => setState(res.data))
+    }
+    const onChangeTodolistHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        setTodolistId(e.currentTarget.value)
+    }
+    const onChangeTaskHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        setTaskId(e.currentTarget.value)
+    }
+    return <div>
+        <div><input placeholder={'todolistId'} type="text" onChange={onChangeTodolistHandler}/></div>
+        <div><input placeholder={'taskId'} type="text" onChange={onChangeTaskHandler}/></div>
+        <div>
+            <button onClick={onClickHandler}>Delete</button>
+        </div>
+        {state &&JSON.stringify(state)}
+    </div>
 }

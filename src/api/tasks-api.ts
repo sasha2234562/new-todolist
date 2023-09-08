@@ -35,5 +35,8 @@ export const tasksApi = {
     },
     instansTask(todolistId: string, taskId: string) {
         return instans.put(`${todolistId}/tasks/${taskId}`, {title: 'Dasha is my girl'})
+    },
+    deleteTask(todolistId: string, taskId: string) {
+        return instans.delete(`${todolistId}/tasks/${taskId}`)
     }
 }
