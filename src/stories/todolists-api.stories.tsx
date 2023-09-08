@@ -60,16 +60,35 @@ export const GetTasks = () => {
     }, [])
     return <div>{JSON.stringify(state)}</div>
 }
+// export const CreateTask = () => {
+//     const [state, setState] = useState<any>(null)
+//     const [state2, setState2] = useState<any>(null)
+//     useEffect(() => {
+//         const todolistId = 'dc05a722-ac4c-4b1e-8d80-dd39db8bbc15'
+//         tasksApi.postTask(todolistId).then(res => setState(res.data))
+//         tasksApi.postTask(todolistId).then(res => setState2(res.data))
+//     }, [])
+//     return <div>{JSON.stringify(state)}{JSON.stringify(state2)}</div>
+// }
 export const CreateTask = () => {
     const [state, setState] = useState<any>(null)
-    const [state2, setState2] = useState<any>(null)
-    useEffect(() => {
-        const todolistId = 'dc05a722-ac4c-4b1e-8d80-dd39db8bbc15'
-        const taskId = ''
-        tasksApi.postTask(todolistId, taskId).then(res => setState(res.data))
-        tasksApi.postTask(todolistId, taskId).then(res => setState2(res.data))
-    }, [])
-    return <div>{JSON.stringify(state)}{JSON.stringify(state2)}</div>
+    const [todolistId, setTodolistId] = useState('')
+    const [title, setTitle] = useState('')
+    const onChangeTaskId = (e: ChangeEvent<HTMLInputElement>) => {
+        setTodolistId(e.currentTarget.value)
+    }
+    const onChangeTitle = (e: ChangeEvent<HTMLInputElement>)=> {
+        setTitle(e.currentTarget.value)
+    }
+    const onClickHandler = () => {
+        tasksApi.postTask(todolistId, title).then(res => setState(res.data))
+    }
+    return <div>
+        <div><input placeholder={'todolist-id'} type="text" onChange={onChangeTaskId}/></div>
+        <div><input placeholder={'title'} type="text" onChange={onChangeTitle}/></div>
+        <button onClick={onClickHandler}>create</button>
+        <div>{state && JSON.stringify(state)}</div>
+    </div>
 }
 export const UpdateTask = () => {
     const [state, setState] = useState<any>(null)
@@ -99,6 +118,6 @@ export const DeleteTask = () => {
         <div>
             <button onClick={onClickHandler}>Delete</button>
         </div>
-        {state &&JSON.stringify(state)}
+        {state && JSON.stringify(state)}
     </div>
 }
