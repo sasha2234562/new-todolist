@@ -6,7 +6,7 @@ type TodolistResponseType<D = {}> = {
     fieldsErrors: Array<string>
     data: D
 }
-type TodolistType = {
+export type TodolistType = {
     id: string
     addedDate: string
     order: number

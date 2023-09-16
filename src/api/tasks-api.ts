@@ -8,7 +8,7 @@ const instans = axios.create({
         'API-KEY': '8a5c1830-8604-4983-b9a4-0d09b4b6ff34'
     }
 })
-type TaskType = {
+export type TaskType = {
     description: string
     title: string
     completed: boolean
