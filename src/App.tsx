@@ -78,7 +78,6 @@ function App() {
         const action = addTodolistAC(title);
         dispatch(action);
     }, [dispatch]);
-    debugger
     return (
         <div className="App">
             <AppBar position="static">
