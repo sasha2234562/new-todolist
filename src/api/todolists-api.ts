@@ -1,10 +1,10 @@
-import axios, {AxiosResponse} from "axios";
+import axios, { AxiosResponse } from 'axios'
 
 const instance = axios.create({
     baseURL: 'https://social-network.samuraijs.com/api/1.1/',
     withCredentials: true,
     headers: {
-        'API-KEY': '8a5c1830-8604-4983-b9a4-0d09b4b6ff34'
+        'API-KEY': '8f2534e2-22a4-4052-894e-a66c04807482'
     }
 })
 

@@ -21,7 +21,7 @@ import {
 } from './state/todolists-reducer'
 import { addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC } from './state/tasks-reducer';
 import { useDispatch, useSelector } from 'react-redux';
-import { AppRootStateType } from './state/store';
+import {AppRootStateType, useAppDispatch} from './state/store';
 import { TaskStatuses, TaskType } from './api/todolists-api'
 
 
@@ -34,8 +34,11 @@ function App() {
 
     const todolists = useSelector<AppRootStateType, Array<TodolistDomainType>>(state => state.todolists)
     const tasks = useSelector<AppRootStateType, TasksStateType>(state => state.tasks)
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
+    useEffect(() => {
+        dispatch(fetchTodolistThunk())
+    }, []);
     const removeTask = useCallback(function (id: string, todolistId: string) {
         const action = removeTaskAC(id, todolistId);
         dispatch(action);
@@ -75,7 +78,7 @@ function App() {
         const action = addTodolistAC(title);
         dispatch(action);
     }, [dispatch]);
-
+    debugger
     return (
         <div className="App">
             <AppBar position="static">
@@ -97,7 +100,6 @@ function App() {
                     {
                         todolists.map(tl => {
                             let allTodolistTasks = tasks[tl.id];
-
                             return <Grid item key={tl.id}>
                                 <Paper style={{padding: '10px'}}>
                                     <Todolist

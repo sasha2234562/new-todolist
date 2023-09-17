@@ -6,10 +6,6 @@ export type RemoveTodolistActionType = {
     type: 'REMOVE-TODOLIST',
     id: string
 }
-export type SetTodolistsActionType = {
-    type: 'SET-TODOLISTS'
-    todolists: Array<TodolistType>
-}
 export type AddTodolistActionType = {
     type: 'ADD-TODOLIST',
     title: string
@@ -25,11 +21,15 @@ export type ChangeTodolistFilterActionType = {
     id: string
     filter: FilterValuesType
 }
+export type setTodolistsActionType = {
+    type: 'SET-TODOLISTS',
+    todolists: TodolistType[]
+}
 
-type ActionsType = RemoveTodolistActionType | AddTodolistActionType
+export type ActionsType = RemoveTodolistActionType | AddTodolistActionType
     | ChangeTodolistTitleActionType
     | ChangeTodolistFilterActionType
-    | SetTodolistsActionType
+    | setTodolistsActionType
 
 const initialState: Array<TodolistDomainType> = [
     /*{id: todolistId1, title: 'What to learn', filter: 'all', addedDate: '', order: 0},
@@ -72,12 +72,13 @@ export const todolistsReducer = (state: Array<TodolistDomainType> = initialState
             return [...state]
         }
         case 'SET-TODOLISTS' : {
-            return action.todolists.map(t => {
-                return {
-                    ...t,
-                    filter: "all"
-                }
-            })
+
+            return action.todolists.map(t => ({
+                ...t,
+                filter: 'all'
+            }))
+
+
         }
         default:
             return state;
@@ -96,10 +97,14 @@ export const changeTodolistTitleAC = (id: string, title: string): ChangeTodolist
 export const changeTodolistFilterAC = (id: string, filter: FilterValuesType): ChangeTodolistFilterActionType => {
     return {type: 'CHANGE-TODOLIST-FILTER', id: id, filter: filter}
 }
-export const setTodolistsAC = (todolists: Array<TodolistType>): SetTodolistsActionType => {
+export const setTodolistsAC = (todolists: TodolistType[]) => {
     return {type: 'SET-TODOLISTS', todolists}
 }
 
-export const fetchTodolistThunk = (dispatch: Dispatch) => {
-    todolistsAPI.getTodolists().then(res => dispatch(setTodolistsAC(res.data)))
+export const fetchTodolistThunk = () => (dispatch: Dispatch) => {
+    todolistsAPI.getTodolists().then(res => {
+        console.log({res})
+        dispatch(setTodolistsAC(res.data))
+
+    })
 }
