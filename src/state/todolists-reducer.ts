@@ -71,13 +71,13 @@ export const todolistsReducer = (state: Array<TodolistDomainType> = initialState
             }
             return [...state]
         }
-        case 'SET-TODOLISTS': {
-            const stateCopy = {...state}
-            action.todolists.forEach((tl) => {
-                // @ts-ignore
-                stateCopy[tl.id] = []
+        case 'SET-TODOLISTS' : {
+            return action.todolists.map(t => {
+                return {
+                    ...t,
+                    filter: "all"
+                }
             })
-            return stateCopy;
         }
         default:
             return state;
@@ -100,6 +100,6 @@ export const setTodolistsAC = (todolists: Array<TodolistType>): SetTodolistsActi
     return {type: 'SET-TODOLISTS', todolists}
 }
 
-export const fetchTodolistThunk = (dispatch: Dispatch)=> {
-    todolistsAPI.getTodolists().then(res=> dispatch(setTodolistsAC(res.data)))
+export const fetchTodolistThunk = (dispatch: Dispatch) => {
+    todolistsAPI.getTodolists().then(res => dispatch(setTodolistsAC(res.data)))
 }

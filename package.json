@@ -36,6 +36,9 @@
     "jest:integration": "jest -c integration/jest.config.js",
     "test:integration": "start-server-and-test storybook http-get://localhost:9009 jest:integration"
   },
+  "jest": {
+    "transformIgnorePatterns": ["/node_modules/(?!(axios|@mui)/)"]
+  },
   "eslintConfig": {
     "extends": [
       "react-app",
