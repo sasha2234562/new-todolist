@@ -145,8 +145,14 @@ export const changeTaskTitleAC = (taskId: string, title: string, todolistId: str
 export const setTasksAC = (tasks: TaskType[], todolistId: string) => {
     return {type: 'SET-TASKS', tasks, todolistId}
 }
-export const fetchTasksThunk = (todolistId: string)=> (dispatch: Dispatch)=> {
-    todolistsAPI.getTasks(todolistId).then(res=> {
+export const fetchTasksThunk = (todolistId: string) => (dispatch: Dispatch) => {
+    todolistsAPI.getTasks(todolistId).then(res => {
         dispatch(setTasksAC(res.data.items, todolistId))
+    })
+}
+
+export const deleteTask = (todolistId: string, taskId: string) => (dispatch: Dispatch) => {
+    todolistsAPI.deleteTask(todolistId, taskId).then(resolve => {
+        dispatch(removeTaskAC(taskId, todolistId))
     })
 }

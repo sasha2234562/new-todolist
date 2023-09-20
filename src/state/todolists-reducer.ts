@@ -88,7 +88,7 @@ export const todolistsReducer = (state: Array<TodolistDomainType> = initialState
 export const removeTodolistAC = (todolistId: string): RemoveTodolistActionType => {
     return {type: 'REMOVE-TODOLIST', id: todolistId}
 }
-export const addTodolistAC = (title: string): AddTodolistActionType => {
+export const createTodolistAC = (title: string): AddTodolistActionType => {
     return {type: 'ADD-TODOLIST', title: title, todolistId: v1()}
 }
 export const changeTodolistTitleAC = (id: string, title: string): ChangeTodolistTitleActionType => {
@@ -106,4 +106,13 @@ export const fetchTodolistThunk = () => (dispatch: Dispatch) => {
         dispatch(setTodolistsAC(res.data))
 
     })
+}
+export const createTodolistThunk = (title: string) => (dispatch: Dispatch) => {
+    todolistsAPI.createTodolist(title).then(res=> {
+        dispatch(createTodolistAC(title))
+    })
+}
+
+export const deleteTodolistThunk = (title: string)=> (dispatch: Dispatch)=> {
+    todolistsAPI.createTodolist(title)
 }
