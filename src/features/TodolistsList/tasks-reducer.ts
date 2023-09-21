@@ -64,14 +64,15 @@ export const removeTaskTC = (taskId: string, todolistId: string) => (dispatch: D
     todolistsAPI.deleteTask(todolistId, taskId)
         .then(res => {
             dispatch(setAppStatusAC('succeeded'))
-
             const action = removeTaskAC(taskId, todolistId)
             dispatch(action)
         })
 }
 export const addTaskTC = (title: string, todolistId: string) => (dispatch: Dispatch<ActionsType>) => {
+    dispatch(setAppStatusAC('loading'))
     todolistsAPI.createTask(todolistId, title)
         .then(res => {
+            dispatch(setAppStatusAC('succeeded'))
             const task = res.data.data.item
             const action = addTaskAC(task)
             dispatch(action)
@@ -96,9 +97,10 @@ export const updateTaskTC = (taskId: string, domainModel: UpdateDomainTaskModelT
             status: task.status,
             ...domainModel
         }
-
+        dispatch(setAppStatusAC('loading'))
         todolistsAPI.updateTask(todolistId, taskId, apiModel)
             .then(res => {
+                dispatch(setAppStatusAC('succeeded'))
                 const action = updateTaskAC(taskId, domainModel, todolistId)
                 dispatch(action)
             })
