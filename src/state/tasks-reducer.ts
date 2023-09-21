@@ -1,15 +1,8 @@
 import {TasksStateType} from '../App';
-import {v1} from 'uuid';
 import {AddTodolistActionType, RemoveTodolistActionType, setTodolistsActionType} from './todolists-reducer';
-import {
-    ResponseType,
-    TaskPriorities,
-    TaskStatuses,
-    TaskType,
-    todolistsAPI,
-    UpdateTaskModelType
-} from '../api/todolists-api'
+import {TaskStatuses, TaskType, todolistsAPI, UpdateTaskModelType} from '../api/todolists-api'
 import {Dispatch} from "redux";
+import {AppRootStateType} from "./store";
 
 export type RemoveTaskActionType = {
     type: 'REMOVE-TASK',
@@ -160,5 +153,49 @@ export const deleteTask = (todolistId: string, taskId: string) => (dispatch: Dis
 export const createTaskThunk = (todolistId: string, title: string) => (dispath: Dispatch) => {
     todolistsAPI.createTask(todolistId, title).then(res => {
         dispath(createTaskAC(res.data.data.item))
+    })
+}
+
+export const changeTaskStatusThunk = (todolistId: string, taskId: string, status: TaskStatuses) => (dispatch: Dispatch, getState: () => AppRootStateType) => {
+    const state = getState()
+    const task = state.tasks[todolistId].find(task => task.id === taskId)
+    if (!task) {
+        console.warn('task is not found')
+        return
+    }
+    const model: UpdateTaskModelType = {
+        description: task.description,
+        title: task.title,
+        status: status,
+        deadline: task.deadline,
+        priority: task.priority,
+        startDate: task.startDate
+    }
+
+
+    todolistsAPI.updateTask(todolistId, taskId, model).then(res => {
+        dispatch(changeTaskStatusAC(taskId, status, todolistId))
+    })
+}
+
+export const updateTaskThunk = (todilistId: string, taskId: string, title: string) => (dispath: Dispatch, getState: () => AppRootStateType) => {
+
+    const state = getState()
+    const task = state.tasks[todilistId].find(task => task.id === taskId)
+    if (!task) {
+        console.warn('task is not found')
+        return
+    }
+    const model: UpdateTaskModelType = {
+        title: title,
+        startDate: task.startDate,
+        priority: task.priority,
+        deadline: task.deadline,
+        status: task.status,
+        description: task.description
+    }
+
+    todolistsAPI.updateTask(todilistId, taskId, model).then(res => {
+        dispath(changeTaskTitleAC(taskId, res.data.data.item.title, todilistId))
     })
 }
