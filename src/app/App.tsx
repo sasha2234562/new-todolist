@@ -12,9 +12,14 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import { Menu } from '@mui/icons-material';
+import {LinearColor} from "../components/Error-Snackbar";
+import {useSelector} from "react-redux";
+import {AppRootStateType} from "./store";
 
 
 function App() {
+
+    const error = useSelector<AppRootStateType>(state => state.app.status)
 
     return (
         <div className="App">
@@ -28,6 +33,7 @@ function App() {
                     </Typography>
                     <Button color="inherit">Login</Button>
                 </Toolbar>
+                {error === 'loading' && <LinearColor/>}
             </AppBar>
             <Container fixed>
                 <TodolistsList/>
