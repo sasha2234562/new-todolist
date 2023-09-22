@@ -21,7 +21,7 @@ export function ErrorSnackbar() {
         dispatch(setAppErrorAC(''))
     }
     return (
-        <Snackbar open={error !== ''} autoHideDuration={2000} onClose={handleClose}>
+        <Snackbar open={error !== ''} autoHideDuration={1000} onClose={handleClose}>
             <Alert onClose={handleClose} severity='error' sx={{width: '100%'}}>
                 {`${error}`}
             </Alert>
