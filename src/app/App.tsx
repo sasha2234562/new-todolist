@@ -20,7 +20,7 @@ import {ErrorSnackbar} from "../components/Error-Snackbar";
 
 function App() {
 
-    const store = useSelector<AppRootStateType>(state => state.app)
+    const status = useSelector<AppRootStateType>(state => state.app.status)
 
     return (
         <div className="App">
@@ -35,13 +35,13 @@ function App() {
                     </Typography>
                     <Button color="inherit">Login</Button>
                 </Toolbar>
-                {store === 'loading' && <LinearColor/>}
+                {status === 'loading' && <LinearColor/>}
             </AppBar>
             <Container fixed>
                 <TodolistsList/>
             </Container>
         </div>
-    )
+    );
 }
 
-export default App
+export default App;

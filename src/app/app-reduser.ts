@@ -2,7 +2,7 @@ export type RequestStatusType = "idle" | "loading" | "succeeded" | "failed"
 
 const initialState = {
     status: "loading" as RequestStatusType,
-    error: ""
+    error: "Error"
 };
 
 export type InitialStateType = typeof initialState
@@ -14,7 +14,7 @@ export const appReducer = (state: InitialStateType = initialState, action: AppAc
         default:
             return state;
         case "APP/SET-ERROR": {
-            return {...state};
+            return {...state, error: action.error};
         }
     }
 };
