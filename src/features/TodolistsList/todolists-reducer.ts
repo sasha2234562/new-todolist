@@ -9,13 +9,16 @@ export const todolistsReducer = (state: Array<TodolistDomainType> = initialState
         case "REMOVE-TODOLIST":
             return state.filter(tl => tl.id !== action.id);
         case "ADD-TODOLIST":
-            return [{...action.todolist, filter: "all", entityStatus: "loading"}, ...state];
+            return [{...action.todolist, filter: "all", entityStatus: 'succeeded'}, ...state];
         case "CHANGE-TODOLIST-TITLE":
             return state.map(tl => tl.id === action.id ? {...tl, title: action.title} : tl);
         case "CHANGE-TODOLIST-FILTER":
             return state.map(tl => tl.id === action.id ? {...tl, filter: action.filter} : tl);
         case "SET-TODOLISTS":
-            return action.todolists.map(tl => ({...tl, filter: "all", entityStatus: "loading"}));
+            return action.todolists.map(tl => ({...tl, filter: "all", entityStatus: "succeeded"}));
+        case "CHANGE-TODOLIST-ENTITY-STATUS": {
+            return state.filter(tl=> tl.id === action.id ? (tl.entityStatus = action.status) : tl)
+        }
         default:
             return state;
     }
@@ -36,6 +39,9 @@ export const changeTodolistFilterAC = (id: string, filter: FilterValuesType) => 
 } as const);
 export const setTodolistsAC = (todolists: Array<TodolistType>) => ({type: "SET-TODOLISTS", todolists} as const);
 
+export const changeTodolistEntityStatusAC = (id: string, status: RequestStatusType) => ({
+    type: 'CHANGE-TODOLIST-ENTITY-STATUS', id, status
+} as const)
 // thunks
 export const fetchTodolistsTC = () => {
     return (dispatch: Dispatch<ActionsType>) => {
@@ -50,9 +56,11 @@ export const fetchTodolistsTC = () => {
 export const removeTodolistTC = (todolistId: string) => {
     return (dispatch: Dispatch<ActionsType>) => {
         dispatch(setAppStatusAC("loading"));
+        dispatch(changeTodolistEntityStatusAC(todolistId, 'loading'))
         todolistsAPI.deleteTodolist(todolistId)
             .then((res) => {
                 dispatch(setAppStatusAC("succeeded"));
+                dispatch(changeTodolistEntityStatusAC(todolistId, 'succeeded'))
                 dispatch(removeTodolistAC(todolistId));
             });
     };
@@ -99,6 +107,8 @@ type ActionsType =
     | ReturnType<typeof changeTodolistFilterAC>
     | SetTodolistsActionType
     | AppActionsType
+    | ReturnType<typeof changeTodolistEntityStatusAC>
+
 export type FilterValuesType = "all" | "active" | "completed";
 
 export type TodolistDomainType = TodolistType & {
