@@ -83,7 +83,7 @@ export const addTaskTC = (title: string, todolistId: string) => (dispatch: Dispa
     todolistsAPI.createTask(todolistId, title)
         .then(res => {
             if (res.data.resultCode === 0) {
-                // dispatch(changeTodolistEntityStatusAC(todolistId, "succeeded"))
+                dispatch(changeTodolistEntityStatusAC(todolistId, "succeeded"))
                 dispatch(setAppStatusAC("succeeded"));
                 dispatch(addTaskAC(res.data.data.item));
             } else {

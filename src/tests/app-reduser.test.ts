@@ -15,7 +15,6 @@ test('correct status should be set', () => {
         status: 'idle',
         error: null
     }
-
     const endState = appReducer(startState, setAppStatusAC('loading'))
     expect(endState.status).toBe('loading')
 })
