@@ -1,5 +1,4 @@
 import {todolistsAPI, TodolistType} from "../../api/todolists-api";
-import {Dispatch} from "redux";
 import {AppActionsType, RequestStatusType, setAppErrorAC, setAppStatusAC} from "../../app/app-reduser";
 import {ThunkAction} from "redux-thunk";
 import {AppActionsAllType, AppRootStateType, AppThunkType} from "../../app/store";
@@ -45,7 +44,7 @@ export const changeTodolistEntityStatusAC = (id: string, status: RequestStatusTy
     type: 'CHANGE-TODOLIST-ENTITY-STATUS', id, status
 } as const)
 // thunks
-export const fetchTodolistsTC = (): ThunkAction<void, AppRootStateType, unknown, AppActionsAllType> => {
+export const fetchTodolistsTC = (): AppThunkType => {
     return (dispatch) => {
         dispatch(setAppStatusAC("loading"));
         todolistsAPI.getTodolists()
@@ -55,7 +54,7 @@ export const fetchTodolistsTC = (): ThunkAction<void, AppRootStateType, unknown,
             });
     };
 };
-export const removeTodolistTC = (todolistId: string): ThunkAction<void, AppRootStateType, unknown, AppActionsAllType> => {
+export const removeTodolistTC = (todolistId: string): AppThunkType => {
     return (dispatch) => {
         dispatch(setAppStatusAC("loading"));
         dispatch(changeTodolistEntityStatusAC(todolistId, 'loading'))
@@ -67,7 +66,7 @@ export const removeTodolistTC = (todolistId: string): ThunkAction<void, AppRootS
             });
     };
 };
-export const addTodolistTC = (title: string): ThunkAction<void, AppRootStateType, unknown, AppActionsAllType> => {
+export const addTodolistTC = (title: string): AppThunkType => {
     return (dispatch) => {
         dispatch(setAppStatusAC("loading"));
         todolistsAPI.createTodolist(title)
@@ -85,7 +84,7 @@ export const addTodolistTC = (title: string): ThunkAction<void, AppRootStateType
             });
     };
 };
-export const changeTodolistTitleTC = (id: string, title: string): ThunkAction<void, AppRootStateType, unknown, AppActionsAllType> => {
+export const changeTodolistTitleTC = (id: string, title: string): AppThunkType => {
     return (dispatch) => {
         dispatch(setAppStatusAC("loading"));
         todolistsAPI.updateTodolist(id, title)

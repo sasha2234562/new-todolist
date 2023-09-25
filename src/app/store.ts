@@ -3,7 +3,7 @@ import {ActionsTodosType, todolistsReducer} from '../features/TodolistsList/todo
 import {AnyAction, applyMiddleware, combineReducers, legacy_createStore} from 'redux'
 import thunkMiddleware, {ThunkAction, ThunkDispatch} from 'redux-thunk'
 import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
-import {appReducer} from "./app-reduser";
+import {AppActionsType, appReducer} from "./app-reduser";
 
 // объединяя reducer-ы с помощью combineReducers,
 // мы задаём структуру нашего единственного объекта-состояния
@@ -23,7 +23,7 @@ export type AppThunkDispatch = ThunkDispatch<AppRootStateType, any, AnyAction>
 export const useAppDispatch = () => useDispatch<AppThunkDispatch>();
 export const useAppSelector: TypedUseSelectorHook<AppRootStateType> = useSelector
 
-export type AppActionsAllType = ActionsTasksType | ActionsTodosType
+export type AppActionsAllType = ActionsTasksType | ActionsTodosType | AppActionsType
 
 export type AppThunkType<ReturnType = void> = ThunkAction<void, AppRootStateType, unknown, AppActionsAllType>
 
