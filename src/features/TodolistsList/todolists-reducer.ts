@@ -2,6 +2,7 @@ import {todolistsAPI, TodolistType} from "../../api/todolists-api";
 import {AppActionsType, RequestStatusType, setAppErrorAC, setAppStatusAC} from "../../app/app-reduser";
 import {ThunkAction} from "redux-thunk";
 import {AppActionsAllType, AppRootStateType, AppThunkType} from "../../app/store";
+import {handleServerAppError} from "../../utils/error-utils";
 
 const initialState: Array<TodolistDomainType> = [];
 
@@ -51,7 +52,9 @@ export const fetchTodolistsTC = (): AppThunkType => {
             .then((res) => {
                 dispatch(setAppStatusAC("succeeded"));
                 dispatch(setTodolistsAC(res.data));
-            });
+            })//.catch(error=> {
+        //         handleServerAppError(error, dispatch)
+        // });
     };
 };
 export const removeTodolistTC = (todolistId: string): AppThunkType => {

@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect} from 'react'
-import {useAppDispatch, useAppSelector} from '../../app/store'
+import {AppRootStateType, useAppDispatch, useAppSelector} from '../../app/store'
 import {
     addTodolistTC,
     changeTodolistFilterAC,
@@ -16,8 +16,13 @@ import {Todolist} from './Todolist/Todolist'
 
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
+import {useSelector} from "react-redux";
+import {Navigate} from "react-router-dom";
 
 export const TodolistsList: React.FC = () => {
+
+    const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.auth.isLoggedIn)
+    console.log(isLoggedIn)
 
     const todolists = useAppSelector<Array<TodolistDomainType>>(state => state.todolists)
     const tasks = useAppSelector<TasksStateType>(state => state.tasks)
@@ -25,8 +30,10 @@ export const TodolistsList: React.FC = () => {
     const dispatch = useAppDispatch()
 
     useEffect(() => {
-        const thunk = fetchTodolistsTC()
-        dispatch(thunk)
+        if (!isLoggedIn) {
+            return
+        }
+        dispatch(fetchTodolistsTC())
     }, [])
 
     const removeTask = useCallback(function (id: string, todolistId: string) {
@@ -69,7 +76,9 @@ export const TodolistsList: React.FC = () => {
         dispatch(thunk)
     }, [])
 
-
+    // if (!isLoggedIn) {
+    //     return <Navigate to={'/login'}/>
+    // }
     return <>
         <Grid container style={{padding: '20px'}}>
             <AddItemForm addItem={addTodolist}/>
@@ -93,7 +102,7 @@ export const TodolistsList: React.FC = () => {
                                 removeTodolist={removeTodolist}
                                 changeTaskTitle={changeTaskTitle}
                                 changeTodolistTitle={changeTodolistTitle}
-                                entityStatus ={tl.entityStatus}
+                                entityStatus={tl.entityStatus}
                             />
                         </Paper>
                     </Grid>
