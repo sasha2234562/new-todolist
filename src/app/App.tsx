@@ -16,6 +16,8 @@ import {LinearColor} from "../components/Error-Snackbar-Origin";
 import {useSelector} from "react-redux";
 import {AppRootStateType} from "./store";
 import {ErrorSnackbar} from "../components/Error-Snackbar";
+import {Navigate, Route, Routes} from "react-router-dom";
+import {Login} from "../features/login/login";
 
 
 function App() {
@@ -38,7 +40,12 @@ function App() {
                 {status === 'loading' && <LinearColor/>}
             </AppBar>
             <Container fixed>
-                <TodolistsList/>
+                <Routes>
+                    <Route path={'/'} element={<TodolistsList/>}/>
+                    <Route path={'/login'} element={<Login/>}/>
+                    <Route path={'/404'} element={<h1>404: PAGE NOT FOUND</h1>}/>
+                    <Route path={'*'} element={<Navigate to={'/404/'}/>}/>
+                </Routes>
             </Container>
         </div>
     );
