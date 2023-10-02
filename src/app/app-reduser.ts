@@ -1,13 +1,12 @@
 import {authAPI} from "../api/auth-api";
-import {AppActionsAllType} from "./store";
 import {setIsLoggedInAC} from "../features/login/login-reducer";
-import {AnyAction, Dispatch} from "redux";
+import {Dispatch} from "redux";
 
 export type RequestStatusType = "idle" | "loading" | "succeeded" | "failed"
 
 const initialState: InitialStateType = {
     status: "loading",
-    error: "Error",
+    error: "",
     isInitialized: false
 };
 
@@ -34,8 +33,8 @@ export const isInitializedTC = () => (dispatch: Dispatch) => {
         if (resolve.data.resultCode === 0) {
             dispatch(setIsLoggedInAC(true))
         }
+        dispatch(setIsInitializedAC(true))
     })
-    dispatch(setIsInitializedAC(true))
 }
 
 export type AppActionsType = ReturnType<typeof setAppStatusAC>

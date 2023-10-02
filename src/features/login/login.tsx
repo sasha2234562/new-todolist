@@ -49,9 +49,9 @@ export const Login = () => {
             formik.resetForm()
         },
     })
-    // if (isLoggedIn) {
-    //     return <Navigate to={'/'}/>
-    // }
+    if (isLoggedIn) {
+        return <Navigate to={'/'}/>
+    }
     return <Grid container justifyContent={'center'}>
         <Grid item justifyContent={'center'}>
             <form onSubmit={formik.handleSubmit}>

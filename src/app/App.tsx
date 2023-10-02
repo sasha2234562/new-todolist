@@ -27,7 +27,6 @@ function App() {
     const dispatch = useDispatch()
     const isInitialized = useSelector<AppRootStateType, boolean>(state => state.app.isInitialized)
     const status = useSelector<AppRootStateType>(state => state.app.status)
-debugger
     useEffect(() => {
         // @ts-ignore
         dispatch(isInitializedTC())

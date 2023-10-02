@@ -52,9 +52,9 @@ export const fetchTodolistsTC = (): AppThunkType => {
             .then((res) => {
                 dispatch(setAppStatusAC("succeeded"));
                 dispatch(setTodolistsAC(res.data));
-            })//.catch(error=> {
-        //         handleServerAppError(error, dispatch)
-        // });
+            }).catch(error=> {
+                handleServerAppError(error, dispatch)
+        });
     };
 };
 export const removeTodolistTC = (todolistId: string): AppThunkType => {

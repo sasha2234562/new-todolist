@@ -10,7 +10,8 @@ type InitialStateType = typeof initialState
 export const authReducer = (state: InitialStateType = initialState, action: AuthActionsType) => {
     switch (action.type) {
         case 'login/SET-IS-LOGGED-IN': {
-            return {...state, initialState: action.value}
+            console.log(action.value)
+            return {...state, isLoggedIn: action.value}
         }
         default:
             return state
@@ -23,11 +24,13 @@ export const setIsLoggedInAC = (value: boolean) => ({type: Login_SET_IS_LOGGED_I
 export const loginTC = (data: any) => (dispatch: Dispatch<AuthActionsType | AppActionsType>) => {
     dispatch(setAppStatusAC('loading'))
     authAPI.login(data).then(resolve => {
-        if(data.resultCode === 0) {
+        if (resolve.data.resultCode === 0) {
             dispatch(setAppStatusAC('succeeded'))
             dispatch(setIsLoggedInAC(true))
         }
-        handleServerAppError(resolve.data, dispatch)
+        else if (data.resultCode === 1) {
+            handleServerAppError(resolve.data, dispatch)
+        }
     })
 }
 
