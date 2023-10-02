@@ -27,13 +27,20 @@ export const loginTC = (data: any) => (dispatch: Dispatch<AuthActionsType | AppA
         if (resolve.data.resultCode === 0) {
             dispatch(setAppStatusAC('succeeded'))
             dispatch(setIsLoggedInAC(true))
-        }
-        else if (data.resultCode === 1) {
+        } else if (resolve.data.resultCode === 1) {
             handleServerAppError(resolve.data, dispatch)
         }
     })
 }
+export const logoutTC = () => (dispatch: Dispatch) => {
+    authAPI.logout().then(resolve => {
+        if (resolve.data.resultCode === 0) {
+            dispatch(setIsLoggedInAC(false))
 
+        }
+
+    })
+}
 //types
 const Login_SET_IS_LOGGED_IN = 'login/SET-IS-LOGGED-IN'
 export type AuthActionsType = ReturnType<typeof setIsLoggedInAC>

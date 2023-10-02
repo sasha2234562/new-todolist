@@ -43,7 +43,6 @@ export const Login = () => {
             return errors
         },
         onSubmit: values => {
-            // alert(JSON.stringify(values))
             // @ts-ignore
             dispatch(loginTC(values))
             formik.resetForm()

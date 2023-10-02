@@ -13,22 +13,23 @@ import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
 import {Menu} from "@mui/icons-material";
 import {LinearColor} from "../components/Error-Snackbar-Origin";
-import {useDispatch, useSelector} from "react-redux";
-import {AppRootStateType} from "./store";
+import {useSelector} from "react-redux";
+import {AppRootStateType, useAppDispatch} from "./store";
 import {ErrorSnackbar} from "../components/Error-Snackbar";
 import {Navigate, Route, Routes} from "react-router-dom";
 import {Login} from "../features/login/login";
 import {isInitializedTC} from "./app-reduser";
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
+import {logoutTC} from "../features/login/login-reducer";
 
 
 function App() {
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
     const isInitialized = useSelector<AppRootStateType, boolean>(state => state.app.isInitialized)
+    const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.auth.isLoggedIn)
     const status = useSelector<AppRootStateType>(state => state.app.status)
     useEffect(() => {
-        // @ts-ignore
         dispatch(isInitializedTC())
     }, []);
     if (!isInitialized) {
@@ -49,7 +50,9 @@ function App() {
                     <Typography variant="h6">
                         News
                     </Typography>
-                    <Button color="inherit">Login</Button>
+                    <Button
+                        onClick={() => dispatch(logoutTC())}
+                        color="inherit">{!isLoggedIn ? "Login" : "Logout"}</Button>
                 </Toolbar>
                 {status === 'loading' && <LinearColor/>}
             </AppBar>

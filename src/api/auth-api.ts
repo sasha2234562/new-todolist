@@ -15,6 +15,9 @@ export const authAPI = {
     },
     isAuth() {
       return   instanse.get('/auth/me')
+    },
+    logout(){
+        return instanse.delete('/auth/login')
     }
 }
 
