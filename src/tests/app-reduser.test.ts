@@ -6,7 +6,8 @@ import {removeTodolistAC, TodolistDomainType, todolistsReducer} from "../feature
 test('correct error should be sed', () => {
     const startState: InitialStateType = {
         status: 'idle',
-        error: null
+        error: null,
+        isInitialized: false
     }
     const endState = appReducer(startState, setAppErrorAC('some error'))
     expect(endState.error).toBe('some error')
@@ -15,7 +16,8 @@ test('correct error should be sed', () => {
 test('correct status should be set', () => {
     const startState: InitialStateType = {
         status: 'idle',
-        error: null
+        error: null,
+        isInitialized: false
     }
     const endState = appReducer(startState, setAppStatusAC('loading'))
     expect(endState.status).toBe('loading')

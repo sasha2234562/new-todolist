@@ -30,9 +30,9 @@ export const TodolistsList: React.FC = () => {
     const dispatch = useAppDispatch()
 
     useEffect(() => {
-        if (!isLoggedIn) {
-            return
-        }
+        // if (!isLoggedIn) {
+        //     return
+        // }
         dispatch(fetchTodolistsTC())
     }, [])
 

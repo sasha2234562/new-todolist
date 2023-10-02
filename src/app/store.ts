@@ -4,7 +4,7 @@ import {AnyAction, applyMiddleware, combineReducers, legacy_createStore} from 'r
 import thunkMiddleware, {ThunkAction, ThunkDispatch} from 'redux-thunk'
 import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
 import {AppActionsType, appReducer} from "./app-reduser";
-import {authReducer} from "../features/login/login-reducer";
+import {AuthActionsType, authReducer} from "../features/login/login-reducer";
 
 // объединяя reducer-ы с помощью combineReducers,
 // мы задаём структуру нашего единственного объекта-состояния
@@ -24,7 +24,7 @@ export type AppThunkDispatch = ThunkDispatch<AppRootStateType, any, AnyAction>
 export const useAppDispatch = () => useDispatch<AppThunkDispatch>();
 export const useAppSelector: TypedUseSelectorHook<AppRootStateType> = useSelector
 
-export type AppActionsAllType = ActionsTasksType | ActionsTodosType | AppActionsType
+export type AppActionsAllType = ActionsTasksType | ActionsTodosType | AppActionsType | AuthActionsType
 
 export type AppThunkType<ReturnType = void> = ThunkAction<void, AppRootStateType, unknown, AppActionsAllType>
 

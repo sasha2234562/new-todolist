@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import "./App.css";
 import {TodolistsList} from "../features/TodolistsList/TodolistsList";
 
@@ -13,17 +13,32 @@ import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
 import {Menu} from "@mui/icons-material";
 import {LinearColor} from "../components/Error-Snackbar-Origin";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "./store";
 import {ErrorSnackbar} from "../components/Error-Snackbar";
 import {Navigate, Route, Routes} from "react-router-dom";
 import {Login} from "../features/login/login";
+import {isInitializedTC} from "./app-reduser";
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
 
 
 function App() {
-
+    const dispatch = useDispatch()
+    const isInitialized = useSelector<AppRootStateType, boolean>(state => state.app.isInitialized)
     const status = useSelector<AppRootStateType>(state => state.app.status)
-
+debugger
+    useEffect(() => {
+        // @ts-ignore
+        dispatch(isInitializedTC())
+    }, []);
+    if (!isInitialized) {
+        return <div>
+            <Box sx={{display: 'flex'}}>
+                <CircularProgress/>
+            </Box>
+        </div>
+    }
     return (
         <div className="App">
             <ErrorSnackbar/>

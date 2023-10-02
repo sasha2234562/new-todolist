@@ -7,7 +7,7 @@ const initialState = {
     isLoggedIn: false
 }
 type InitialStateType = typeof initialState
-export const authReducer = (state: InitialStateType = initialState, action: ActionsType) => {
+export const authReducer = (state: InitialStateType = initialState, action: AuthActionsType) => {
     switch (action.type) {
         case 'login/SET-IS-LOGGED-IN': {
             return {...state, initialState: action.value}
@@ -20,7 +20,7 @@ export const authReducer = (state: InitialStateType = initialState, action: Acti
 export const setIsLoggedInAC = (value: boolean) => ({type: Login_SET_IS_LOGGED_IN, value} as const)
 
 // thunks
-export const loginTC = (data: any) => (dispatch: Dispatch<ActionsType | AppActionsType>) => {
+export const loginTC = (data: any) => (dispatch: Dispatch<AuthActionsType | AppActionsType>) => {
     dispatch(setAppStatusAC('loading'))
     authAPI.login(data).then(resolve => {
         if(data.resultCode === 0) {
@@ -33,4 +33,4 @@ export const loginTC = (data: any) => (dispatch: Dispatch<ActionsType | AppActio
 
 //types
 const Login_SET_IS_LOGGED_IN = 'login/SET-IS-LOGGED-IN'
-type ActionsType = ReturnType<typeof setIsLoggedInAC>
+export type AuthActionsType = ReturnType<typeof setIsLoggedInAC>

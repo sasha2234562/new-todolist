@@ -12,6 +12,9 @@ const instanse = axios.create({
 export const authAPI = {
     login(value: authLogin) {
         return instanse.post('/auth/login', value)
+    },
+    isAuth() {
+      return   instanse.get('/auth/me')
     }
 }
 
